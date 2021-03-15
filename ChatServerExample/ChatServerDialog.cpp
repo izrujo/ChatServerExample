@@ -18,7 +18,8 @@ void ChatServerDialog::DoDataExchange(CDataExchange* pDX){
 BOOL ChatServerDialog::OnInitDialog(){
 	CDialog::OnInitDialog();
 
-	if (this->listenSocket.Create(63620, SOCK_STREAM)) //소켓 생성(바인드되는 포트번호, TCP 소켓 플래그)
+	//포트번호 : 포트포워딩 규칙 설정 시에 설정한 내부 포트 번호
+	if (this->listenSocket.Create(80, SOCK_STREAM)) //소켓 생성(바인드되는 포트번호, TCP 소켓 플래그)
 	{
 		if (!this->listenSocket.Listen()) //서버가 클라이언트의 접속을 받을 수 있는 상태로 설정
 		{

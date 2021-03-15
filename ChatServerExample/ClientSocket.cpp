@@ -2,6 +2,7 @@
 #include "ListenSocket.h"
 #include "ChatServerDialog.h"
 
+#pragma warning(disable:4996)
 ClientSocket::ClientSocket(){
 	this->listenSocket = NULL;
 }
@@ -32,6 +33,13 @@ void ClientSocket::OnReceive(int nErrorCode){
 	GetPeerName(strIPAddress, uPortNumber);
 	if (Receive(buffer, sizeof(buffer)) > 0) {
 		ChatServerDialog* main = (ChatServerDialog*)AfxGetMainWnd();
+
+		char command[4];
+		strncpy((char*)command, (char*)buffer, 3);
+		if (strncmp((char*)command, "NAA", 3) == 0) {
+			AfxMessageBox(buffer);
+		}
+
 		strTemp.Format(_T("[%s:%d] : %s"), strIPAddress, uPortNumber, buffer);
 		main->list.AddString(strTemp);
 		main->list.SetCurSel(main->list.GetCount() - 1);

@@ -45,7 +45,7 @@ void ListenSocket::SendChatDataAll(TCHAR* message) {
 	while (position != NULL) {
 		client = (ClientSocket*)this->clientSocketList.GetNext(position);
 		if (client != NULL) {
-			client->Send(message, lstrlen(message) * 2); //유니코드를 사용하므로 문자열 길이에 *2
+			client->Send(message, lstrlen(message)); //유니코드를 사용하므로 문자열 길이에 *2
 			//반환값은 *2한 값과 같아야 한다.
 		}
 	}
